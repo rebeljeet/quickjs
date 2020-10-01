@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <string.h>
-
 #include "cutils.h"
 
 void pstrcpy(char *buf, int buf_size, const char *str)
@@ -176,10 +175,13 @@ int __attribute__((format(printf, 2, 3))) dbuf_printf(DynBuf *s,
     va_start(ap, fmt);
     len = vsnprintf(buf, sizeof(buf), fmt, ap);
     va_end(ap);
-    if (len < sizeof(buf)) {
+    if (len < sizeof(buf)) 
+    {
         /* fast case */
         return dbuf_put(s, (uint8_t *)buf, len);
-    } else {
+    } 
+    else 
+    {
         if (dbuf_realloc(s, s->size + len + 1))
             return -1;
         va_start(ap, fmt);
